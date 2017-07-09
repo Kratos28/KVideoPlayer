@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A147A8B1F126ECD00F7E387 /* KBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A147A8A1F126ECD00F7E387 /* KBrightnessView.m */; };
-		0A147A8E1F126FE600F7E387 /* UIWindow+CurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A147A8D1F126FE600F7E387 /* UIWindow+CurrentViewController.m */; };
+		0A147A941F128B7D00F7E387 /* UIView+CustomControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A147A911F128B7D00F7E387 /* UIView+CustomControlView.m */; };
+		0A147A951F128B7D00F7E387 /* UIWindow+CurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A147A931F128B7D00F7E387 /* UIWindow+CurrentViewController.m */; };
 		0A17C4311F0E934600E247A4 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A17C4191F0E934600E247A4 /* MASCompositeConstraint.m */; };
 		0A17C4321F0E934600E247A4 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A17C41C1F0E934600E247A4 /* MASConstraint.m */; };
 		0A17C4331F0E934600E247A4 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A17C41E1F0E934600E247A4 /* MASConstraintMaker.m */; };
@@ -31,15 +32,16 @@
 		0A2DF2071F0BB31800053E8C /* KPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2DF2061F0BB31800053E8C /* KPlayerControlView.m */; };
 		0AD04A921F0CDE300002820E /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04A911F0CDE300002820E /* ASValueTrackingSlider.m */; };
 		0AD04A951F0CDE470002820E /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04A941F0CDE470002820E /* ASValuePopUpView.m */; };
-		0AD04AA11F0D01840002820E /* UIView+CustomControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04AA01F0D01840002820E /* UIView+CustomControlView.m */; };
 		0AD04ACA1F0D4C7B0002820E /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A147A891F126ECD00F7E387 /* KBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBrightnessView.h; sourceTree = "<group>"; };
 		0A147A8A1F126ECD00F7E387 /* KBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBrightnessView.m; sourceTree = "<group>"; };
-		0A147A8C1F126FE600F7E387 /* UIWindow+CurrentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+CurrentViewController.h"; sourceTree = "<group>"; };
-		0A147A8D1F126FE600F7E387 /* UIWindow+CurrentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+CurrentViewController.m"; sourceTree = "<group>"; };
+		0A147A901F128B7D00F7E387 /* UIView+CustomControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CustomControlView.h"; sourceTree = "<group>"; };
+		0A147A911F128B7D00F7E387 /* UIView+CustomControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CustomControlView.m"; sourceTree = "<group>"; };
+		0A147A921F128B7D00F7E387 /* UIWindow+CurrentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+CurrentViewController.h"; sourceTree = "<group>"; };
+		0A147A931F128B7D00F7E387 /* UIWindow+CurrentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+CurrentViewController.m"; sourceTree = "<group>"; };
 		0A17C4181F0E934600E247A4 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		0A17C4191F0E934600E247A4 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		0A17C41A1F0E934600E247A4 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -89,8 +91,6 @@
 		0AD04A911F0CDE300002820E /* ASValueTrackingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValueTrackingSlider.m; sourceTree = "<group>"; };
 		0AD04A931F0CDE470002820E /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		0AD04A941F0CDE470002820E /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
-		0AD04A9F1F0D01840002820E /* UIView+CustomControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CustomControlView.h"; sourceTree = "<group>"; };
-		0AD04AA01F0D01840002820E /* UIView+CustomControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CustomControlView.m"; sourceTree = "<group>"; };
 		0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
 		0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +106,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A147A8F1F128B7D00F7E387 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0A147A901F128B7D00F7E387 /* UIView+CustomControlView.h */,
+				0A147A911F128B7D00F7E387 /* UIView+CustomControlView.m */,
+				0A147A921F128B7D00F7E387 /* UIWindow+CurrentViewController.h */,
+				0A147A931F128B7D00F7E387 /* UIWindow+CurrentViewController.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		0A17C4171F0E934600E247A4 /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +193,7 @@
 		0A2DF1ED1F0B90F000053E8C /* KVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A147A8F1F128B7D00F7E387 /* Category */,
 				0A17C4171F0E934600E247A4 /* Masonry */,
 				0AD04A931F0CDE470002820E /* ASValuePopUpView.h */,
 				0AD04A941F0CDE470002820E /* ASValuePopUpView.m */,
@@ -197,14 +209,10 @@
 				0A2DF2061F0BB31800053E8C /* KPlayerControlView.m */,
 				0A1B9ACB1F0FD2B900592FEF /* MMMaterialDesignSpinner.h */,
 				0A1B9ACC1F0FD2B900592FEF /* MMMaterialDesignSpinner.m */,
-				0AD04A9F1F0D01840002820E /* UIView+CustomControlView.h */,
-				0AD04AA01F0D01840002820E /* UIView+CustomControlView.m */,
 				0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */,
 				0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */,
 				0A1B9ACE1F0FD65D00592FEF /* KVideoPlayer.h */,
 				0A1B9ACF1F0FD79A00592FEF /* KPlayerControlViewDelagate.h */,
-				0A147A8C1F126FE600F7E387 /* UIWindow+CurrentViewController.h */,
-				0A147A8D1F126FE600F7E387 /* UIWindow+CurrentViewController.m */,
 			);
 			path = KVideoPlayer;
 			sourceTree = "<group>";
@@ -283,7 +291,7 @@
 				0A17C4391F0E934600E247A4 /* View+MASAdditions.m in Sources */,
 				0A2DF1DE1F0B90C500053E8C /* ViewController.m in Sources */,
 				0A2DF1DB1F0B90C500053E8C /* AppDelegate.m in Sources */,
-				0A147A8E1F126FE600F7E387 /* UIWindow+CurrentViewController.m in Sources */,
+				0A147A951F128B7D00F7E387 /* UIWindow+CurrentViewController.m in Sources */,
 				0A2DF2041F0BB00200053E8C /* KPlayerModel.m in Sources */,
 				0AD04A921F0CDE300002820E /* ASValueTrackingSlider.m in Sources */,
 				0A2DF1D81F0B90C500053E8C /* main.m in Sources */,
@@ -291,6 +299,7 @@
 				0A147A8B1F126ECD00F7E387 /* KBrightnessView.m in Sources */,
 				0A17C4351F0E934600E247A4 /* MASViewAttribute.m in Sources */,
 				0A17C4311F0E934600E247A4 /* MASCompositeConstraint.m in Sources */,
+				0A147A941F128B7D00F7E387 /* UIView+CustomControlView.m in Sources */,
 				0AD04A951F0CDE470002820E /* ASValuePopUpView.m in Sources */,
 				0A1B9ACD1F0FD2B900592FEF /* MMMaterialDesignSpinner.m in Sources */,
 				0A2DF1F01F0B913900053E8C /* KVideoPlayerView.m in Sources */,
@@ -301,7 +310,6 @@
 				0A17C4371F0E934600E247A4 /* NSArray+MASAdditions.m in Sources */,
 				0A2DF2071F0BB31800053E8C /* KPlayerControlView.m in Sources */,
 				0AD04ACA1F0D4C7B0002820E /* MoviePlayerViewController.m in Sources */,
-				0AD04AA11F0D01840002820E /* UIView+CustomControlView.m in Sources */,
 				0A17C4361F0E934600E247A4 /* MASViewConstraint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
