@@ -199,7 +199,6 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         make.centerY.equalTo(self.backBtn.mas_centerY);
         make.trailing.equalTo(self.resolutionBtn.mas_leading).offset(-10);
     }];
-    
     [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.mas_equalTo(0);
         make.height.mas_equalTo(50);
@@ -396,6 +395,8 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         _bottomImageView.userInteractionEnabled = YES;
         _bottomImageView.alpha                  = 0;
         _bottomImageView.image                  = [UIImage imageNamed:@"Player_bottom_shadow"];
+        _bottomImageView.backgroundColor = [UIColor greenColor];
+
     }
     return _bottomImageView;
 }
@@ -449,6 +450,25 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     }
     return _progressView;
 }
+/**
+ slider滑块的bounds
+ */
+- (CGRect)thumbRect {
+    return [self.videoSlider thumbRectForBounds:self.videoSlider.bounds
+                                      trackRect:[self.videoSlider trackRectForBounds:self.videoSlider.bounds]
+                                          value:self.videoSlider.value];
+}
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    CGRect rect = [self thumbRect];
+    CGPoint point = [touch locationInView:self.videoSlider];
+    if ([touch.view isKindOfClass:[UISlider class]]) { // 如果在滑块上点击就不响应pan手势
+        if (point.x <= rect.origin.x + rect.size.width && point.x >= rect.origin.x) { return NO; }
+    }
+    return YES;
+}
+
 
 - (ASValueTrackingSlider *)videoSlider {
     if (!_videoSlider) {
@@ -461,7 +481,6 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         _videoSlider.maximumValue          = 1;
         _videoSlider.minimumTrackTintColor = [UIColor whiteColor];
         _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-        
         // slider开始滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
         // slider滑动中事件
@@ -773,6 +792,54 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     if ([self.delegate respondsToSelector:@selector(controlView:cneterPlayAction:)]) {
         [self.delegate controlView:self cneterPlayAction:sender];
     }
+}
+
+- (void)playerDraggedTime:(NSInteger)draggedTime sliderImage:(UIImage *)image; {
+    // 拖拽的时长
+    NSInteger proMin = draggedTime / 60;//当前秒
+    NSInteger proSec = draggedTime % 60;//当前分钟
+    NSString *currentTimeStr = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
+    [self.videoSlider setImage:image];
+    [self.videoSlider setText:currentTimeStr];
+    self.fastView.hidden = YES;
+}
+
+- (void)playerDraggedTime:(NSInteger)draggedTime totalTime:(NSInteger)totalTime isForward:(BOOL)forawrd hasPreview:(BOOL)preview {
+    // 快进快退时候停止菊花
+    [self.activity stopAnimating];
+    // 拖拽的时长
+    NSInteger proMin = draggedTime / 60;//当前秒
+    NSInteger proSec = draggedTime % 60;//当前分钟
+    
+    //duration 总时长
+    NSInteger durMin = totalTime / 60;//总秒
+    NSInteger durSec = totalTime % 60;//总分钟
+    
+    NSString *currentTimeStr = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
+    NSString *totalTimeStr   = [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
+    CGFloat  draggedValue    = (CGFloat)draggedTime/(CGFloat)totalTime;
+    NSString *timeStr        = [NSString stringWithFormat:@"%@ / %@", currentTimeStr, totalTimeStr];
+    
+    // 显示、隐藏预览窗
+    self.videoSlider.popUpView.hidden = !preview;
+    // 更新slider的值
+    self.videoSlider.value            = draggedValue;
+    // 更新bottomProgressView的值
+    self.bottomProgressView.progress  = draggedValue;
+    // 更新当前时间
+    self.currentTimeLabel.text        = currentTimeStr;
+    // 正在拖动控制播放进度
+    self.dragged = YES;
+    
+    if (forawrd) {
+        self.fastImageView.image = [UIImage imageNamed:@"Player_fast_forward"];
+    } else {
+        self.fastImageView.image = [UIImage imageNamed:@"Player_fast_backward"];
+    }
+    self.fastView.hidden           = preview;
+    self.fastTimeLabel.text        = timeStr;
+    self.fastProgressView.progress = draggedValue;
+    
 }
 
 

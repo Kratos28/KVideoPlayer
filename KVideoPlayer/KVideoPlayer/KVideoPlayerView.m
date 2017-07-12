@@ -46,7 +46,8 @@
 @property (nonatomic, strong) NSIndexPath            *indexPath;
 /** ViewController中页面是否消失 */
 @property (nonatomic, assign) BOOL                   viewDisappear;
-
+/** slider预览图 */
+@property (nonatomic, strong) UIImage                *thumbImg;
 @property (nonatomic, assign) NSInteger    seekTime;
 
 @property (nonatomic, strong) NSDictionary           *resolutionDic;
@@ -81,6 +82,8 @@
 
 /** 当cell划出屏幕的时候停止播放（默认为NO） */
 @property (nonatomic, assign) BOOL                    stopPlayWhileCellNotVisable;
+/** slider上次的值 */
+@property (nonatomic, assign) CGFloat                sliderLastValue;
 @end
 
 @implementation KVideoPlayerView
@@ -943,6 +946,62 @@
         [self.delegate playerControlViewWillHidden:controlView isFullscreen:fullscreen];
     }
 }
+//滑杆拖动调用
+- (void)controlView:(UIView *)controlView progressSliderValueChanged:(UISlider *)slider
+{
+    //如果视频已经缓冲好
+    if (self.player.currentItem.status == AVPlayerStatusReadyToPlay)
+    {
+        self.isDragged = YES;
+        BOOL style = false;
+        CGFloat value = slider.value - self.sliderLastValue;
+        if (value >0) {style = YES;} //是快进
+        if (value <0) {style = NO;} //是快退
+        if (value == 0) {return ;} //没有拖动
+        self.sliderLastValue = slider.value;
+        CGFloat totalTime = (CGFloat)_playerItem.duration.value / _playerItem.duration.timescale;//获取总时长
+        //计算出拖动的当前秒数
+        CGFloat dragedSeconds = floorf(totalTime * slider.value);
+        //转换成CMTime才能给player来控制播放进度
+        CMTime dragedCMTime   = CMTimeMake(dragedSeconds, 1);
+        //更改conrtolViewUI
+        [controlView playerDraggedTime:dragedSeconds totalTime:totalTime isForward:style hasPreview:self.isFullScreen ? self.hasPreviewView : NO];
+        if (totalTime > 0)
+        { // 当总时长 > 0时候才能拖动slider
+            if (self.isFullScreen && self.hasPreviewView)
+            {  //如果是全屏并且是开启预览图
+                [self.imageGenerator cancelAllCGImageGeneration]; //取消视频所有关键帧图片
+                self.imageGenerator.appliesPreferredTrackTransform = YES;
+                self.imageGenerator.maximumSize = CGSizeMake(100, 56);
+                [self.imageGenerator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:dragedCMTime]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) { //生成图片时候调用
+                    if (result != AVAssetImageGeneratorSucceeded)
+                    {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [controlView playerDraggedTime:dragedSeconds sliderImage:self.thumbImg ? : [UIImage imageNamed:@"Player_loading_bgView"]];
+                        });
+                    } else
+                    {
+                        self.thumbImg = [UIImage imageWithCGImage:image];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [controlView playerDraggedTime:dragedSeconds sliderImage:self.thumbImg ? : [UIImage imageNamed:@"Player_loading_bgView"]];
+                        });
+                    }
 
+                }];
+                
+            }
+        }else
+        {
+            // 此时设置slider值为0
+            slider.value = 0;
+        }
+    }else
+    {
+        // player状态加载失败
+        // 此时设置slider值为0
+        slider.value = 0;
+    }
+    
+}
 
 @end
