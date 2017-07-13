@@ -458,6 +458,19 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
                                       trackRect:[self.videoSlider trackRectForBounds:self.videoSlider.bounds]
                                           value:self.videoSlider.value];
 }
+
+/** 播放完了 */
+- (void)playerPlayEnd {
+    self.repeatBtn.hidden = NO;
+    self.playeEnd         = YES;
+    self.showing          = NO;
+    // 隐藏controlView
+    [self hideControlView];
+    self.backgroundColor  = RGBA(0, 0, 0, .3);
+    [KBrightnessView sharedBrightnessView].isStatusBarHidden = NO;
+    self.bottomProgressView.alpha = 0;
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -487,7 +500,7 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         // slider结束滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
-        
+        //滑杆轻触手势
         UITapGestureRecognizer *sliderTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSliderAction:)];
         [_videoSlider addGestureRecognizer:sliderTap];
         
@@ -673,7 +686,20 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     }
 }
 
+//视频播放完毕，点击了重播按钮惠调
+- (void)repeatBtnClick:(UIButton *)sender {
+    // 重置控制层View
+    [self playerResetControlView];
+    //显示控制层
+    [self playerShowControlView];
+    //重播按钮事件  回调到VideoPlayerView
+    if ([self.delegate respondsToSelector:@selector(controlView:repeatPlayAction:)]) {
+        [self.delegate controlView:self repeatPlayAction:sender];
+    }
+}
 
+
+// slider开始滑动事件
 - (void)progressSliderTouchBegan:(ASValueTrackingSlider *)sender {
     [self playerCancelAutoFadeOutControlView];
     self.videoSlider.popUpView.hidden = YES;
@@ -681,15 +707,16 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         [self.delegate controlView:self progressSliderTouchBegan:sender];
     }
 }
-
+  // slider滑动中事件
 - (void)progressSliderValueChanged:(ASValueTrackingSlider *)sender {
     if ([self.delegate respondsToSelector:@selector(controlView:progressSliderValueChanged:)]) {
         [self.delegate controlView:self progressSliderValueChanged:sender];
     }
 }
-
+// slider结束滑动事件
 - (void)progressSliderTouchEnded:(ASValueTrackingSlider *)sender {
     self.showing = YES;
+    //改变视频的播放进度
     if ([self.delegate respondsToSelector:@selector(controlView:progressSliderTouchEnded:)]) {
         [self.delegate controlView:self progressSliderTouchEnded:sender];
     }
@@ -701,7 +728,7 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
  *  UISlider TapAction
  */
 - (void)tapSliderAction:(UITapGestureRecognizer *)tap {
-    if ([tap.view isKindOfClass:[UISlider class]]) {
+    if ([tap.view isKindOfClass:[UISlider class]]) { //滑动放手的使用嗲用
         UISlider *slider = (UISlider *)tap.view;
         CGPoint point = [tap locationInView:slider];
         CGFloat length = slider.frame.size.width;
@@ -775,8 +802,18 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         self.shrink                = NO;
     }
     self.bottomProgressView.alpha  = 0;
-//    ZFPlayerShared.isStatusBarHidden = NO;
 
+}
+//设备fastView隐藏
+- (void)playerDraggedEnd {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.fastView.hidden = YES;
+    });
+    self.dragged = NO;
+    // 结束滑动时候把开始播放按钮改为播放状态
+    self.startBtn.selected = YES;
+    // 滑动结束延时隐藏controlView
+    [self autoFadeOutControlView];
 }
 
 /** 播放按钮状态 */

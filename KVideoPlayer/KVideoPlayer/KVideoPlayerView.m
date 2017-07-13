@@ -339,6 +339,7 @@
  *  设置横屏的约束
  */
 - (void)setOrientationLandscapeConstraint:(UIInterfaceOrientation)orientation {
+    //UI重新布局
     [self toOrientation:orientation];
     self.isFullScreen = YES;
 }
@@ -489,6 +490,31 @@
     });
 }
 
+
+#pragma mark - NSNotification Action
+
+/**
+ *  播放完了
+ *
+ *  @param notification 通知
+ */
+- (void)moviePlayDidEnd:(NSNotification *)notification {
+    self.state = KPlayerStateStopped;
+    if (self.isBottomVideo && !self.isFullScreen) { // 播放完了，如果是在小屏模式 && 在bottom位置，直接关闭播放器
+        self.repeatToPlay = NO;
+        self.playDidEnd   = NO;
+        [self resetPlayer];
+    } else {
+        if (!self.isDragged) { // 如果不是拖拽中，直接结束播放
+            self.playDidEnd = YES;
+            //结束播放
+            [self.controlView playerPlayEnd];
+        }
+    }
+}
+
+
+
 #pragma mark - 计算缓冲进度
 
 /**
@@ -532,7 +558,7 @@
     [self configureVolume];
     
     
-    // 本地文件不设置ZFPlayerStateBuffering状态
+    // 本地文件不设置PlayerStateBuffering状态
     if ([self.playerModel.videoURL.scheme isEqualToString:@"file"]) {
         self.state = KPlayerStatePlaying;
         self.isLocalVideo = YES;
@@ -814,7 +840,46 @@
         [self setOrientationPortraitConstraint];
     }
 }
-
+// 状态条变化通知（在前台播放才去处理）
+- (void)onStatusBarOrientationChange {
+//    if (!self.didEnterBackground) {
+//        // 获取到当前状态条的方向
+//        UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+//        if (currentOrientation == UIInterfaceOrientationPortrait) {
+//            [self setOrientationPortraitConstraint];
+//            if (self.cellPlayerOnCenter) {
+//                if ([self.scrollView isKindOfClass:[UITableView class]]) {
+//                    UITableView *tableView = (UITableView *)self.scrollView;
+//                    [tableView scrollToRowAtIndexPath:self.indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+//                    
+//                } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+//                    UICollectionView *collectionView = (UICollectionView *)self.scrollView;
+//                    [collectionView scrollToItemAtIndexPath:self.indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+//                }
+//            }
+//            [self.brightnessView removeFromSuperview];
+//            [[UIApplication sharedApplication].keyWindow addSubview:self.brightnessView];
+//            [self.brightnessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.width.height.mas_equalTo(155);
+//                make.leading.mas_equalTo((ScreenWidth-155)/2);
+//                make.top.mas_equalTo((ScreenHeight-155)/2);
+//            }];
+//        } else {
+//            if (currentOrientation == UIInterfaceOrientationLandscapeRight) {
+//                [self toOrientation:UIInterfaceOrientationLandscapeRight];
+//            } else if (currentOrientation == UIDeviceOrientationLandscapeLeft){
+//                [self toOrientation:UIInterfaceOrientationLandscapeLeft];
+//            }
+//            [self.brightnessView removeFromSuperview];
+//            [self addSubview:self.brightnessView];
+//            [self.brightnessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.center.mas_equalTo(self);
+//                make.width.height.mas_equalTo(155);
+//            }];
+//            
+//        }
+//    }
+}
 
 #pragma mark - Action
 
@@ -870,6 +935,7 @@
 /** 全屏 */
 - (void)_fullScreenAction {
     if ([KBrightnessView sharedBrightnessView].isLockScreen) {
+        //解锁屏幕
         [self unLockTheScreen];
         return;
     }
@@ -878,10 +944,13 @@
         self.isFullScreen = NO;
         return;
     } else {
+        //获取当前设备的方向
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if (orientation == UIDeviceOrientationLandscapeRight) {
+            //左边
             [self interfaceOrientation:UIInterfaceOrientationLandscapeLeft];
         } else {
+            //设备右边
             [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
         }
         self.isFullScreen = YES;
@@ -915,7 +984,7 @@
     }
 }
 
-#pragma mark - ZFPlayerControlViewDelegate
+#pragma mark - PlayerControlViewDelegate
 
 
 - (void)controlView:(UIView *)controlView playAction:(UIButton *)sender {
@@ -1004,4 +1073,41 @@
     
 }
 
+- (void)controlView:(UIView *)controlView progressSliderTouchEnded:(UISlider *)slider
+{
+    if (self.player.currentItem.status == AVPlayerItemStatusReadyToPlay) {//视频状态是能正常播放的
+        //设备不是用户点击了暂停按钮
+        self.isPauseByUser = NO;
+        self.isDragged = NO;
+        // 视频总时间长度
+        CGFloat total = (CGFloat)_playerItem.duration.value / _playerItem.duration.timescale;
+        //计算出拖动的当前秒数
+        NSInteger dragedSeconds = floorf(total * slider.value);
+         // 从xx秒开始播放视频跳转
+        [self seekToTime:dragedSeconds completionHandler:nil];
+    }
+}
+/** 重播按钮事件 */
+- (void)controlView:(UIView *)controlView repeatPlayAction:(UIButton *)sender
+{
+    // 没有播放完
+    self.playDidEnd   = NO;
+    // 重播改为NO
+    self.repeatToPlay = NO;
+    [self seekToTime:0 completionHandler:nil];
+    
+    if ([self.videoURL.scheme isEqualToString:@"file"]) {
+        self.state = KPlayerStatePlaying;
+    } else {
+        //视屏没有缓存本地
+        self.state = KPlayerStateBuffering;
+    }
+}
+/** 全屏按钮事件 */
+- (void)controlView:(UIView *)controlView fullScreenAction:(UIButton *)sender
+{
+    //全屏动作
+    [self _fullScreenAction];
+
+}
 @end

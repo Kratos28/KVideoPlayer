@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +27,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="播放"/>
                                 <connections>
-                                    <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Okw-bU-fxX"/>
+                                    <segue destination="dmz-cW-A8L" kind="push" id="Nun-5o-sTc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -37,6 +38,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Movie Player View Controller-->
+        <scene sceneID="HYF-n4-vjE">
+            <objects>
+                <viewController id="dmz-cW-A8L" customClass="MoviePlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CNW-2w-aNt"/>
+                        <viewControllerLayoutGuide type="bottom" id="HAs-de-wi9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a6P-Jq-ZHb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8s-A0-35V">
+                                <rect key="frame" x="0.0" y="40" width="375" height="211"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J8s-A0-35V" secondAttribute="height" multiplier="16:9" id="Lqy-yk-ntF"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="J8s-A0-35V" secondAttribute="trailing" id="CBe-ha-2og"/>
+                            <constraint firstItem="J8s-A0-35V" firstAttribute="leading" secondItem="a6P-Jq-ZHb" secondAttribute="leading" id="Xxr-l6-MuH"/>
+                            <constraint firstItem="J8s-A0-35V" firstAttribute="top" secondItem="CNW-2w-aNt" secondAttribute="bottom" constant="20" id="wJ6-Ca-TDt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ajq-iT-a6R"/>
+                    <connections>
+                        <outlet property="playerFatherView" destination="J8s-A0-35V" id="fmK-Ot-oS1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CLj-Ag-c0H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eZZ-vr-htL">

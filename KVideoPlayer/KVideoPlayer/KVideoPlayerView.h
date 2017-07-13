@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, KPlayerState) {
 
 /**
  * 指定播放的控制层和模型
- * 控制层传nil，默认使用ZFPlayerControlView(如自定义可传自定义的控制层)
+ * 控制层传nil，默认使用KPlayerControlView(如自定义可传自定义的控制层)
  */
 - (void)playerControlView:(UIView *)controlView playerModel:(KPlayerModel *)playerModel;
 

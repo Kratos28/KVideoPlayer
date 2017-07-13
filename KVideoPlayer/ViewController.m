@@ -21,10 +21,11 @@
 
 
 }
-- (IBAction)play:(id)sender {
-    MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
-    movie.videoURL  = [NSURL URLWithString: @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
-    [self.navigationController pushViewController:movie animated:YES];
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    MoviePlayerViewController *movie = (MoviePlayerViewController *)segue.destinationViewController;
+    movie.videoURL                   = [NSURL URLWithString: @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
 }
 
 - (void)didReceiveMemoryWarning {
