@@ -24,8 +24,7 @@
 @property (nonatomic, strong) UIView     *controlView;
 /** 是否为全屏 */
 @property (nonatomic, assign) BOOL                   isFullScreen;
-/** 是否被用户暂停 */
-@property (nonatomic, assign) BOOL                   isPauseByUser;
+
 /** 滑杆 */
 @property (nonatomic, strong) UISlider               *volumeViewSlider;
 /** 播放属性 */
@@ -569,11 +568,24 @@
         [self.controlView playerDownloadBtnState:YES];
     }
     
-    [self play];
     // 开始播放
     [self play];
     self.isPauseByUser = NO;
     
+}
+
+- (void)controlView:(UIView *)controlView backAction:(UIButton *)sender {
+    if ([KBrightnessView sharedBrightnessView].isLockScreen) {
+        [self unLockTheScreen];
+    } else {
+        if (!self.isFullScreen) {
+            // player加到控制器上，只有一个player时候
+            [self pause];
+            if ([self.delegate respondsToSelector:@selector(playerBackAction)]) { [self.delegate playerBackAction]; }
+        } else {
+            [self interfaceOrientation:UIInterfaceOrientationPortrait];
+        }
+    }
 }
 /**
  *  创建手势
@@ -1110,4 +1122,17 @@
     [self _fullScreenAction];
 
 }
+//点击滑杆时候调用
+- (void)controlView:(UIView *)controlView progressSliderTap:(CGFloat)value {
+    // 视频总时间长度
+    CGFloat total = (CGFloat)self.playerItem.duration.value / self.playerItem.duration.timescale;
+    //计算出拖动的当前秒数
+    NSInteger dragedSeconds = floorf(total * value);
+    // 播放按钮状态 (播放、暂停状态)
+    [self.controlView playerPlayBtnState:YES];
+    //跳转到对应的位置
+    [self seekToTime:dragedSeconds completionHandler:^(BOOL finished) {}];
+    
+}
+
 @end

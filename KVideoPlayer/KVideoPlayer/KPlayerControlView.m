@@ -395,7 +395,6 @@ static const CGFloat KPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         _bottomImageView.userInteractionEnabled = YES;
         _bottomImageView.alpha                  = 0;
         _bottomImageView.image                  = [UIImage imageNamed:@"Player_bottom_shadow"];
-        _bottomImageView.backgroundColor = [UIColor greenColor];
 
     }
     return _bottomImageView;

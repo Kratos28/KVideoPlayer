@@ -50,7 +50,10 @@ typedef NS_ENUM(NSInteger, KPlayerState) {
 
 /** 静音（默认为NO）*/
 @property (nonatomic, assign) BOOL                    mute;
-
+/** player在栈上，即此时push或者模态了新控制器 */
+@property (nonatomic, assign) BOOL                    playerPushedOrPresented;
+/** 是否被用户暂停 */
+@property (nonatomic, assign) BOOL                   isPauseByUser;
 + (instancetype)sharedPlayerView;
 
 /**

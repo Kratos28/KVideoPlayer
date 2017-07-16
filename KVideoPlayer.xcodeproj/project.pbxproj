@@ -32,6 +32,12 @@
 		0A2DF2071F0BB31800053E8C /* KPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2DF2061F0BB31800053E8C /* KPlayerControlView.m */; };
 		0A651D281F1782140050DD9D /* UINavigationController+ZFFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A651D271F1782140050DD9D /* UINavigationController+ZFFullscreenPopGesture.m */; };
 		0A651D2B1F17927B0050DD9D /* UIViewController+PlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A651D2A1F17927B0050DD9D /* UIViewController+PlayerRotation.m */; };
+		0A651D2F1F17C2C20050DD9D /* KAdPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A651D2E1F17C2C20050DD9D /* KAdPlayerView.m */; };
+		0A681B071F192843007BC2A5 /* KAdButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A681B061F192843007BC2A5 /* KAdButton.m */; };
+		0A69EED01F1A8DFF00B087DE /* KVideoAdDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A69EECF1F1A8DFF00B087DE /* KVideoAdDownloader.m */; };
+		0A6FCFE11F19EDD000D0E149 /* KVideoAdConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6FCFE01F19EDD000D0E149 /* KVideoAdConfiguration.m */; };
+		0A6FCFE41F1A025B00D0E149 /* NSString+KVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6FCFE31F1A025B00D0E149 /* NSString+KVideoAd.m */; };
+		0A6FCFE71F1A056A00D0E149 /* KVideoAdCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6FCFE61F1A056A00D0E149 /* KVideoAdCache.m */; };
 		0AD04A921F0CDE300002820E /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04A911F0CDE300002820E /* ASValueTrackingSlider.m */; };
 		0AD04A951F0CDE470002820E /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04A941F0CDE470002820E /* ASValuePopUpView.m */; };
 		0AD04ACA1F0D4C7B0002820E /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */; };
@@ -93,12 +99,24 @@
 		0A651D271F1782140050DD9D /* UINavigationController+ZFFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ZFFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		0A651D291F17927B0050DD9D /* UIViewController+PlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PlayerRotation.h"; sourceTree = "<group>"; };
 		0A651D2A1F17927B0050DD9D /* UIViewController+PlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PlayerRotation.m"; sourceTree = "<group>"; };
+		0A651D2D1F17C2C20050DD9D /* KAdPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAdPlayerView.h; sourceTree = "<group>"; };
+		0A651D2E1F17C2C20050DD9D /* KAdPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAdPlayerView.m; sourceTree = "<group>"; };
+		0A681B051F192843007BC2A5 /* KAdButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAdButton.h; sourceTree = "<group>"; };
+		0A681B061F192843007BC2A5 /* KAdButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAdButton.m; sourceTree = "<group>"; };
+		0A69EECE1F1A8DFF00B087DE /* KVideoAdDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVideoAdDownloader.h; sourceTree = "<group>"; };
+		0A69EECF1F1A8DFF00B087DE /* KVideoAdDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVideoAdDownloader.m; sourceTree = "<group>"; };
+		0A6FCFDF1F19EDD000D0E149 /* KVideoAdConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVideoAdConfiguration.h; sourceTree = "<group>"; };
+		0A6FCFE01F19EDD000D0E149 /* KVideoAdConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVideoAdConfiguration.m; sourceTree = "<group>"; };
+		0A6FCFE21F1A025B00D0E149 /* NSString+KVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KVideoAd.h"; sourceTree = "<group>"; };
+		0A6FCFE31F1A025B00D0E149 /* NSString+KVideoAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KVideoAd.m"; sourceTree = "<group>"; };
+		0A6FCFE51F1A056A00D0E149 /* KVideoAdCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVideoAdCache.h; sourceTree = "<group>"; };
+		0A6FCFE61F1A056A00D0E149 /* KVideoAdCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVideoAdCache.m; sourceTree = "<group>"; };
 		0AD04A901F0CDE300002820E /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
 		0AD04A911F0CDE300002820E /* ASValueTrackingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValueTrackingSlider.m; sourceTree = "<group>"; };
 		0AD04A931F0CDE470002820E /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		0AD04A941F0CDE470002820E /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
-		0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
-		0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
+		0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoviePlayerViewController.h; path = KVideoPlayer/MoviePlayerViewController.h; sourceTree = "<group>"; };
+		0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoviePlayerViewController.m; path = KVideoPlayer/MoviePlayerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +141,8 @@
 				0A147A931F128B7D00F7E387 /* UIWindow+CurrentViewController.m */,
 				0A651D291F17927B0050DD9D /* UIViewController+PlayerRotation.h */,
 				0A651D2A1F17927B0050DD9D /* UIViewController+PlayerRotation.m */,
+				0A6FCFE21F1A025B00D0E149 /* NSString+KVideoAd.h */,
+				0A6FCFE31F1A025B00D0E149 /* NSString+KVideoAd.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -183,6 +203,8 @@
 				0A2DF1DA1F0B90C500053E8C /* AppDelegate.m */,
 				0A2DF1DC1F0B90C500053E8C /* ViewController.h */,
 				0A2DF1DD1F0B90C500053E8C /* ViewController.m */,
+				0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */,
+				0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */,
 				0A2DF1DF1F0B90C500053E8C /* Main.storyboard */,
 				0A2DF1E21F0B90C500053E8C /* Assets.xcassets */,
 				0A2DF1E41F0B90C500053E8C /* LaunchScreen.storyboard */,
@@ -203,6 +225,7 @@
 		0A2DF1ED1F0B90F000053E8C /* KVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A651D2C1F17C29D0050DD9D /* AdPlayerVIew */,
 				0A147A8F1F128B7D00F7E387 /* Category */,
 				0A17C4171F0E934600E247A4 /* Masonry */,
 				0AD04A931F0CDE470002820E /* ASValuePopUpView.h */,
@@ -219,12 +242,27 @@
 				0A2DF2061F0BB31800053E8C /* KPlayerControlView.m */,
 				0A1B9ACB1F0FD2B900592FEF /* MMMaterialDesignSpinner.h */,
 				0A1B9ACC1F0FD2B900592FEF /* MMMaterialDesignSpinner.m */,
-				0AD04AC81F0D4C7B0002820E /* MoviePlayerViewController.h */,
-				0AD04AC91F0D4C7B0002820E /* MoviePlayerViewController.m */,
 				0A1B9ACE1F0FD65D00592FEF /* KVideoPlayer.h */,
 				0A1B9ACF1F0FD79A00592FEF /* KPlayerControlViewDelagate.h */,
 			);
 			path = KVideoPlayer;
+			sourceTree = "<group>";
+		};
+		0A651D2C1F17C29D0050DD9D /* AdPlayerVIew */ = {
+			isa = PBXGroup;
+			children = (
+				0A651D2D1F17C2C20050DD9D /* KAdPlayerView.h */,
+				0A651D2E1F17C2C20050DD9D /* KAdPlayerView.m */,
+				0A681B051F192843007BC2A5 /* KAdButton.h */,
+				0A681B061F192843007BC2A5 /* KAdButton.m */,
+				0A6FCFDF1F19EDD000D0E149 /* KVideoAdConfiguration.h */,
+				0A6FCFE01F19EDD000D0E149 /* KVideoAdConfiguration.m */,
+				0A6FCFE51F1A056A00D0E149 /* KVideoAdCache.h */,
+				0A6FCFE61F1A056A00D0E149 /* KVideoAdCache.m */,
+				0A69EECE1F1A8DFF00B087DE /* KVideoAdDownloader.h */,
+				0A69EECF1F1A8DFF00B087DE /* KVideoAdDownloader.m */,
+			);
+			path = AdPlayerVIew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,10 +338,12 @@
 			files = (
 				0A651D281F1782140050DD9D /* UINavigationController+ZFFullscreenPopGesture.m in Sources */,
 				0A17C4391F0E934600E247A4 /* View+MASAdditions.m in Sources */,
+				0A6FCFE11F19EDD000D0E149 /* KVideoAdConfiguration.m in Sources */,
 				0A2DF1DE1F0B90C500053E8C /* ViewController.m in Sources */,
 				0A2DF1DB1F0B90C500053E8C /* AppDelegate.m in Sources */,
 				0A147A951F128B7D00F7E387 /* UIWindow+CurrentViewController.m in Sources */,
 				0A2DF2041F0BB00200053E8C /* KPlayerModel.m in Sources */,
+				0A651D2F1F17C2C20050DD9D /* KAdPlayerView.m in Sources */,
 				0AD04A921F0CDE300002820E /* ASValueTrackingSlider.m in Sources */,
 				0A2DF1D81F0B90C500053E8C /* main.m in Sources */,
 				0A17C43A1F0E934600E247A4 /* ViewController+MASAdditions.m in Sources */,
@@ -314,6 +354,9 @@
 				0A147A941F128B7D00F7E387 /* UIView+CustomControlView.m in Sources */,
 				0AD04A951F0CDE470002820E /* ASValuePopUpView.m in Sources */,
 				0A1B9ACD1F0FD2B900592FEF /* MMMaterialDesignSpinner.m in Sources */,
+				0A681B071F192843007BC2A5 /* KAdButton.m in Sources */,
+				0A6FCFE71F1A056A00D0E149 /* KVideoAdCache.m in Sources */,
+				0A69EED01F1A8DFF00B087DE /* KVideoAdDownloader.m in Sources */,
 				0A2DF1F01F0B913900053E8C /* KVideoPlayerView.m in Sources */,
 				0A17C4331F0E934600E247A4 /* MASConstraintMaker.m in Sources */,
 				0A17C4321F0E934600E247A4 /* MASConstraint.m in Sources */,
@@ -322,6 +365,7 @@
 				0A17C4371F0E934600E247A4 /* NSArray+MASAdditions.m in Sources */,
 				0A2DF2071F0BB31800053E8C /* KPlayerControlView.m in Sources */,
 				0AD04ACA1F0D4C7B0002820E /* MoviePlayerViewController.m in Sources */,
+				0A6FCFE41F1A025B00D0E149 /* NSString+KVideoAd.m in Sources */,
 				0A17C4361F0E934600E247A4 /* MASViewConstraint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

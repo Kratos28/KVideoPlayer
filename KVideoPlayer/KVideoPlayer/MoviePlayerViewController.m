@@ -12,11 +12,16 @@
 #import "Masonry.h"
 #import "UINavigationController+ZFFullscreenPopGesture.h"
 #import "UIViewController+PlayerRotation.h"
+#import "KAdPlayerView.h"
+#import "KAdPlayerView.h"
+#import "KVideoAdConfiguration.h"
 
-@interface MoviePlayerViewController ()
+@interface MoviePlayerViewController () <KPlayerDelegate>
 @property (strong, nonatomic) KVideoPlayerView *playerView;
 @property (nonatomic, strong) KPlayerModel *playerModel;
 @property (weak, nonatomic) IBOutlet UIView *playerFatherView;
+/** 离开页面时候是否在播放 */
+@property (nonatomic, assign) BOOL isPlaying;
 @end
 
 @implementation MoviePlayerViewController
@@ -38,10 +43,52 @@
 //        make.height.mas_equalTo(self.playerFatherView.mas_width).multipliedBy(9.0f/16.0f);
 //    }];
     
+    
+    UIView *view1 = [[UIView alloc]init];
+    [self.view addSubview: view1];
+    
+    [view1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(250);
+        make.leading.trailing.mas_equalTo(0);
+        make.height.mas_equalTo(view1.mas_width).multipliedBy(9.0f/16.0);
+        
+    }];
+    
+    
+    KVideoAdConfiguration *videoAdconfiguration = [KVideoAdConfiguration new];
+    //广告停留时间
+    videoAdconfiguration.duration = 15;
+    
+    //广告视频URLString/或本地视频名(请带上后缀)
+    //注意:视频广告只支持先缓存,下次显示
+    videoAdconfiguration.videoNameOrURLString = @"http://ohnzw6ag6.bkt.clouddn.com/video0.mp4";
+    //视频缩放模式
+    //广告点击打开链接
+    videoAdconfiguration.openURLString = @"http://www.baidu.com";
+    //广告显示完成动画
+    videoAdconfiguration.showFinishAnimate = KShowFinishAnimateFadein;
+    //广告显示完成动画时间
+    videoAdconfiguration.showFinishAnimateTime = 0.8;
+    
+    //跳过按钮类型
+    videoAdconfiguration.skipButtonType = SkipTypeTimeText;
+    
+    
+    [KAdPlayerView sharedPlayerViewWithFatherView:view1 videoAdConfiguaration:videoAdconfiguration delegate:nil];
+
+    
+
+    
     [self setupUI];
+    
+    
+  
+    
     // Do any additional setup after loading the view.
 }
-
+- (void)playerBackAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 // 返回值要必须为NO
 - (BOOL)shouldAutorotate {
     return NO;
@@ -50,7 +97,24 @@
 {
     [self.playerView autoPlayTheVideo];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // pop回来时候是否自动播放
+    if (self.navigationController.viewControllers.count == 2 && self.playerView && self.isPlaying) {
+        self.isPlaying = NO;
+        self.playerView.playerPushedOrPresented = NO;
+    }
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // push出下一级页面时候暂停
+    if (self.navigationController.viewControllers.count == 3 && self.playerView && !self.playerView.isPauseByUser)
+    {
+        self.isPlaying = YES;
+        self.playerView.playerPushedOrPresented = YES;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -60,7 +124,7 @@
         _playerModel                  = [[KPlayerModel alloc] init];
         _playerModel.title            = @"这里设置视频标题";
         //http://gg.3gtv.net/media/172.18.222.45,20101,361/320x180.m3u8
-        _playerModel.videoURL         =  [NSURL URLWithString:@"http://gg.3gtv.net/media/172.18.222.45,20101,361/320x180.m3u8"];
+        _playerModel.videoURL         =  self.videoURL;
         _playerModel.placeholderImage = [UIImage imageNamed:@"loading_bgView1"];
         _playerModel.fatherView       = self.playerFatherView;
         //        _playerModel.resolutionDic = @{@"高清" : self.videoURL.absoluteString,
@@ -84,7 +148,7 @@
         [_playerView playerControlView:nil playerModel:self.playerModel];
         
         // 设置代理
-//        _playerView.delegate = self;
+        _playerView.delegate = self;
         
         //（可选设置）可以设置视频的填充模式，内部设置默认（KPlayerLayerGravityResizeAspect：等比例填充，直到一个维度到达区域边界）
         // _playerView.playerLayerGravity = KPlayerLayerGravityResize;
